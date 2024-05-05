@@ -1,0 +1,58 @@
+﻿<Window x:Class="DBAapp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBAapp"
+        mc:Ignorable="d"
+        Title="DBAapp" MinHeight="450" MinWidth="930" Height="450" Width="930" WindowStyle="ThreeDBorderWindow" Background="White" WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#485561" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid x:Name="MainGrid">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="350"/>
+            <RowDefinition MaxHeight="85"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="DataGrid" Grid.Row="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Width="auto">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1} {2}">
+                            <Binding Path="last_name"/>
+                            <Binding Path="first_name"/>
+                            <Binding Path="patronymic"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Улица" Width="auto" Binding="{Binding Address.street}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер дома" Width="auto" Binding="{Binding Address.number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Домашний номер телефона" Width="auto" Binding="{Binding PhoneNumber.home_phone_number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Рабочий номер телефона" Width="auto" Binding="{Binding PhoneNumber.work_phone_number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Мобильный номер телефона" Width="auto" Binding="{Binding PhoneNumber.mobile_phone_number}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Button x:Name="Search" Content="Поиск" Grid.Row="1" Grid.Column="0" Click="Search_Click"></Button>
+        <Button x:Name="ExportCSV" Content="Выгрузить CSV" Grid.Row="1" Grid.Column="1" Click="ExportCSV_Click"></Button>
+        <Button x:Name="Streets" Content="Улицы" Grid.Row="1" Grid.Column="2" Click="Streets_Click"></Button>
+        
+    </Grid>
+</Window>
